@@ -61,7 +61,7 @@ public class RecipeController {
     }
 
     @DeleteMapping("/recipes/{name}")
-    public ResponseEntity<Object> deleteRecipe(@PathVariable String name){
+    public ResponseEntity deleteRecipe(@PathVariable String name){
         Recipe recipe = recipeRepository.findRecipeByName(name);
         if(recipe!=null){
             recipeRepository.delete(recipe);
