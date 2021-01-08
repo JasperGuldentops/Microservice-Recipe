@@ -18,11 +18,11 @@ public class RecipeController {
     @PostConstruct
     public void fillDB() {
         if(recipeRepository.count() == 0) {
-            recipeRepository.save(new Recipe("Pizza", 45, "Roll dough, bake, ready"));
-            recipeRepository.save(new Recipe("Fries", 30, "Slice potato, fry, ready"));
-            recipeRepository.save(new Recipe("Milkshake", 20, "Milk cow, shake, ready"));
-            recipeRepository.save(new Recipe("Vanilla Ice", 120, "Freeze milk, ready"));
-            recipeRepository.save(new Recipe("Spaghetti", 45, "Cook pasta, add sauce, ready"));
+            recipeRepository.save(new Recipe("Pizza", 45, "Roll dough, bake, ready", "Pizza0000"));
+            recipeRepository.save(new Recipe("Fries", 30, "Slice potato, fry, ready", "Fries0000"));
+            recipeRepository.save(new Recipe("Milkshake", 20, "Milk cow, shake, ready", "Milkshake0000"));
+            recipeRepository.save(new Recipe("Vanilla Ice", 120, "Freeze milk, ready", "Vanilla Ice0000"));
+            recipeRepository.save(new Recipe("Spaghetti", 45, "Cook pasta, add sauce, ready", "Spaghetti0000"));
         }
 
         System.out.println("Recipe test: " + recipeRepository.findAll().size());
@@ -35,9 +35,15 @@ public class RecipeController {
     }
 
     @GetMapping("/recipes/{name}")
-    public Recipe GetRecipeByName(@PathVariable String name) {
+    public List<Recipe> GetRecipesByName(@PathVariable String name) {
 
-        return recipeRepository.findRecipeByName(name);
+        return recipeRepository.findRecipesByNameContaining(name);
+    }
+
+    @GetMapping("/recipes/code/{code}")
+    public Recipe GetRecipeByName(@PathVariable String code) {
+
+        return recipeRepository.findRecipeByCode(code);
     }
 
     @PostMapping("/recipes")
@@ -50,8 +56,9 @@ public class RecipeController {
 
     @PutMapping("/recipes")
     public Recipe updateRecipe(@RequestBody Recipe updatedRecipe){
-        Recipe recipe = recipeRepository.findRecipeByName(updatedRecipe.getName());
+        Recipe recipe = recipeRepository.findRecipeByCode(updatedRecipe.getCode());
 
+        recipe.setName(updatedRecipe.getName());
         recipe.setDescription(updatedRecipe.getDescription());
         recipe.setCookingTime(updatedRecipe.getCookingTime());
 
@@ -60,9 +67,9 @@ public class RecipeController {
         return recipe;
     }
 
-    @DeleteMapping("/recipes/{name}")
-    public ResponseEntity deleteRecipe(@PathVariable String name){
-        Recipe recipe = recipeRepository.findRecipeByName(name);
+    @DeleteMapping("/recipes/{code}")
+    public ResponseEntity deleteRecipe(@PathVariable String code){
+        Recipe recipe = recipeRepository.findRecipeByCode(code);
         if(recipe!=null){
             recipeRepository.delete(recipe);
             return ResponseEntity.ok().build();
