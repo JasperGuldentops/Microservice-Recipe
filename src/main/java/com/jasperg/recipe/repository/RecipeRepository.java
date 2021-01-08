@@ -8,8 +8,8 @@ import java.util.List;
 
 @Repository
 public interface RecipeRepository extends MongoRepository<Recipe, String> {
-    Recipe findRecipeByCode(String code);
     List<Recipe> findAll();
     List<Recipe> findRecipesByNameContaining(String name);
-
+    List<Recipe> findRecipesByUserCode(String userCode);
+    Recipe findRecipeByCode(String code);
 }

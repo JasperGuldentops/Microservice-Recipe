@@ -11,22 +11,25 @@ public class Recipe {
     private String name;
     private Integer cookingTime;
     private String description;
+    private String userCode;
     private String code;
 
     public Recipe() {
     }
 
-    public Recipe(String name, Integer cookingTime, String description) {
+    public Recipe(String name, Integer cookingTime, String description, String userCode) {
         this.name = name;
         this.cookingTime = cookingTime;
         this.description = description;
+        this.userCode = userCode;
         setCode(name);
     }
 
-    public Recipe(String name, Integer cookingTime, String description, String codeString) {
+    public Recipe(String name, Integer cookingTime, String description, String userCode, String codeString) {
         this.name = name;
         this.cookingTime = cookingTime;
         this.description = description;
+        this.userCode = userCode;
         this.code = name + "-" + codeString;
     }
 
@@ -52,6 +55,14 @@ public class Recipe {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
     public String getCode() {

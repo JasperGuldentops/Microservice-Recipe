@@ -18,18 +18,18 @@ public class RecipeController {
     @PostConstruct
     public void fillDB() {
         if(recipeRepository.count() == 0) {
-            recipeRepository.save(new Recipe("Pizza", 45, "Roll dough, bake, ready", "0000"));
-            recipeRepository.save(new Recipe("Fries", 30, "Slice potato, fry, ready", "0000"));
-            recipeRepository.save(new Recipe("Milkshake", 20, "Milk cow, shake, ready", "0000"));
-            recipeRepository.save(new Recipe("Vanilla Ice", 120, "Freeze milk, ready", "0000"));
-            recipeRepository.save(new Recipe("Spaghetti", 45, "Cook pasta, add sauce, ready", "0000"));
+            recipeRepository.save(new Recipe("Pizza", 45, "Roll dough, bake, ready", "jg@gmail.com-0000", "0000"));
+            recipeRepository.save(new Recipe("Fries", 30, "Slice potato, fry, ready", "jg@gmail.com-0000", "0000"));
+            recipeRepository.save(new Recipe("Milkshake", 20, "Milk cow, shake, ready", "aa@gmail.com-0000", "0000"));
+            recipeRepository.save(new Recipe("Vanilla Ice", 120, "Freeze milk, ready", "bb@gmail.com-0000", "0000"));
+            recipeRepository.save(new Recipe("Spaghetti", 45, "Cook pasta, add sauce, ready", "cc@gmail.com-0000", "0000"));
         }
 
         System.out.println("Recipe test: " + recipeRepository.findAll().size());
     }
 
     @GetMapping("/recipes")
-    public List<Recipe> GetRecipeByName() {
+    public List<Recipe> GetRecipes() {
 
         return recipeRepository.findAll();
     }
@@ -40,8 +40,14 @@ public class RecipeController {
         return recipeRepository.findRecipesByNameContaining(name);
     }
 
+    @GetMapping("/recipes/usercode/{userCode}")
+    public List<Recipe> GetRecipesByUserCode(@PathVariable String userCode) {
+
+        return recipeRepository.findRecipesByUserCode(userCode);
+    }
+
     @GetMapping("/recipes/code/{code}")
-    public Recipe GetRecipeByName(@PathVariable String code) {
+    public Recipe GetRecipeByCode(@PathVariable String code) {
 
         return recipeRepository.findRecipeByCode(code);
     }
