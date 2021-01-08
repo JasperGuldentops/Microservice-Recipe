@@ -23,11 +23,11 @@ public class Recipe {
         setCode(name);
     }
 
-    public Recipe(String name, Integer cookingTime, String description, String code) {
+    public Recipe(String name, Integer cookingTime, String description, String codeString) {
         this.name = name;
         this.cookingTime = cookingTime;
         this.description = description;
-        this.code = code;
+        this.code = name + "-" + codeString;
     }
 
     public String getName() {
@@ -59,6 +59,6 @@ public class Recipe {
     }
 
     public void setCode(String recipeName) {
-        this.code = recipeName + Helper.getRandomString(4);
+        this.code = recipeName + "-" + Helper.getRandomString(4);
     }
 }
