@@ -54,9 +54,13 @@ public class RecipeController {
     @PostMapping("/recipes")
     public Recipe addRecipe (@RequestBody Recipe recipe) {
 
-        recipeRepository.save(recipe);
+        //Create new recipe to make sure a code is generated, rather than added by user
+        Recipe newRecipe = new Recipe(recipe.getName(), recipe.getCookingTime(),
+                recipe.getDescription(), recipe.getUserCode());
 
-        return recipe;
+        recipeRepository.save(newRecipe);
+
+        return newRecipe;
     }
 
     @PutMapping("/recipes")

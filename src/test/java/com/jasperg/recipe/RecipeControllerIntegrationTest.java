@@ -160,7 +160,7 @@ public class RecipeControllerIntegrationTest {
     public void whenPostRecipe_thenReturnJsonRecipe() throws Exception {
 
         Recipe newRecipe = new Recipe("Vanilla Ice", 120, "Freeze milk, ready",
-                "cc@gmail.com-0000", "Vanilla Ice-0000");
+                "cc@gmail.com-0000");
 
         mockMvc.perform(post("/recipes")
                 .content(mapper.writeValueAsString(newRecipe))
@@ -171,8 +171,8 @@ public class RecipeControllerIntegrationTest {
                 .andExpect(jsonPath("$.name", is("Vanilla Ice")))
                 .andExpect(jsonPath("$.cookingTime", is(120)))
                 .andExpect(jsonPath("$.description", is("Freeze milk, ready")))
-                .andExpect(jsonPath("$.userCode", is("cc@gmail.com-0000")))
-                .andExpect(jsonPath("$.code", is("Vanilla Ice-0000")));
+                .andExpect(jsonPath("$.userCode", is("cc@gmail.com-0000")));
+                //.andExpect(jsonPath("$.code", is("Vanilla Ice-0000"))); Can't check for code since it's generated on POST
     }
 
     @Test
