@@ -22,15 +22,15 @@ public class Recipe {
         this.cookingTime = cookingTime;
         this.description = description;
         this.userCode = userCode;
-        setCode(name);
+        this.code = name + "-" + Helper.getRandomString(4);
     }
 
-    public Recipe(String name, Integer cookingTime, String description, String userCode, String codeString) {
+    public Recipe(String name, Integer cookingTime, String description, String userCode, String code) {
         this.name = name;
         this.cookingTime = cookingTime;
         this.description = description;
         this.userCode = userCode;
-        this.code = name + "-" + codeString;
+        this.code = code;
     }
 
     public String getName() {
@@ -69,7 +69,7 @@ public class Recipe {
         return code;
     }
 
-    public void setCode(String recipeName) {
-        this.code = recipeName + "-" + Helper.getRandomString(4);
+    public void setCode(String code) {
+        this.code = code;
     }
 }
